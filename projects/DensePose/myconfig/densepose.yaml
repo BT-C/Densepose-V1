@@ -1,0 +1,21 @@
+_BASE_: "Base-DensePose-RCNN-FPN.yaml"
+MODEL:
+  WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
+  RESNETS:
+    DEPTH: 50
+  ROI_HEADS:
+    NAME: "MyROIHeads"
+  ROI_DENSEPOSE_HEAD:
+    # PREDICTOR_NAME: "DensePoseChartWithConfidencePredictor"
+    MY_PREDICTOR_NAME: "MyDensePoseChartWithConfidencePredictor"
+    NUM_COARSE_SEGM_CHANNELS: 15
+DATASETS:
+  # TRAIN: ("densepose_coco_2014_valminusminival",)
+  TRAIN: ("densepose_coco_2014_train", "densepose_coco_2014_valminusminival")
+  TEST: ("densepose_coco_2014_minival",)
+  # ROI_DENSEPOSE_HEAD:
+  #   NUM_COARSE_SEGM_CHANNELS: 15
+  # ROI_DENSEPOSE_HEAD.MY_PREDICTOR_NAME
+SOLVER:
+  MAX_ITER: 130000
+  STEPS: (100000, 120000)

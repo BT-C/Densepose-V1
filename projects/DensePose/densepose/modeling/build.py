@@ -85,3 +85,22 @@ def build_densepose_embedder(cfg: CfgNode) -> Optional[nn.Module]:
     if cfg.MODEL.ROI_DENSEPOSE_HEAD.CSE.EMBEDDERS:
         return Embedder(cfg)
     return None
+
+
+# ============================================================
+def build_my_densepose_predictor(cfg: CfgNode, input_channels: int):
+    """
+    Create an instance of DensePose predictor based on configuration options.
+
+    Args:
+        cfg (CfgNode): configuration options
+        input_channels (int): input tensor size along the channel dimension
+    Return:
+        An instance of DensePose predictor
+    """
+    from .predictors import DENSEPOSE_PREDICTOR_REGISTRY
+
+    predictor_name = cfg.MODEL.ROI_DENSEPOSE_HEAD.MY_PREDICTOR_NAME
+    # predictor_name = "MyDensePoseChartWithConfidencePredictor"
+    return DENSEPOSE_PREDICTOR_REGISTRY.get(predictor_name)(cfg, input_channels)
+# =============================================================

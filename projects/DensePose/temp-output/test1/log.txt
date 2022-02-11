@@ -1,0 +1,1540 @@
+[11/20 08:19:47] detectron2 INFO: Rank of current process: 0. World size: 1
+[11/20 08:19:48] detectron2 INFO: Environment info:
+----------------------  ---------------------------------------------------------------------------------------------------------
+sys.platform            linux
+Python                  3.8.12 (default, Oct 12 2021, 13:49:34) [GCC 7.5.0]
+numpy                   1.21.3
+detectron2              0.6 @/home/wangxuanhan/research/detectron/detectron2/detectron2
+Compiler                GCC 9.3
+CUDA compiler           CUDA 11.1
+detectron2 arch flags   8.6
+DETECTRON2_ENV_MODULE   <not set>
+PyTorch                 1.8.0+cu111 @/home/wangxuanhan/software/anaconda3/envs/detectron2/lib/python3.8/site-packages/torch
+PyTorch debug build     False
+GPU available           Yes
+GPU 0,1,2,3             GeForce RTX 3090 (arch=8.6)
+Driver version          455.23.05
+CUDA_HOME               /usr/local/cuda
+Pillow                  8.4.0
+torchvision             0.9.0+cu111 @/home/wangxuanhan/software/anaconda3/envs/detectron2/lib/python3.8/site-packages/torchvision
+torchvision arch flags  3.5, 5.0, 6.0, 7.0, 7.5, 8.0, 8.6
+fvcore                  0.1.5.post20211023
+iopath                  0.1.9
+cv2                     4.5.4-dev
+----------------------  ---------------------------------------------------------------------------------------------------------
+PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.0 Product Build 20191122 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v1.7.0 (Git Hash 7aed236906b1f7a05c0917e5257a1af05e9ff683)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.1
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86
+  - CuDNN 8.0.5
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.1, CUDNN_VERSION=8.0.5, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.8.0, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, 
+
+[11/20 08:19:48] detectron2 INFO: Command line arguments: Namespace(config_file='./myconfig/densepose.yaml', dist_url='tcp://127.0.0.1:50158', eval_only=False, machine_rank=0, num_gpus=4, num_machines=1, opts=['SOLVER.IMS_PER_BATCH', '8', 'SOLVER.BASE_LR', '0.0001', 'SOLVER.MAX_ITER', '520000', 'SOLVER.STEPS', '400000,480000', 'TEST.EVAL_PERIOD', '10000', 'OUTPUT_DIR', './temp-output/test1', 'MODEL.WEIGHTS', 'model.pkl'], resume=False)
+[11/20 08:19:48] detectron2 INFO: Contents of args.config_file=./myconfig/densepose.yaml:
+_BASE_: "Base-DensePose-RCNN-FPN.yaml"
+MODEL:
+  WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
+  RESNETS:
+    DEPTH: 50
+  ROI_HEADS:
+    NAME: "MyROIHeads"
+  ROI_DENSEPOSE_HEAD:
+    # PREDICTOR_NAME: "DensePoseChartWithConfidencePredictor"
+    MY_PREDICTOR_NAME: "MyDensePoseChartWithConfidencePredictor"
+    NUM_COARSE_SEGM_CHANNELS: 15
+DATASETS:
+  TRAIN: ("densepose_coco_2014_valminusminival",)
+  TEST: ("densepose_coco_2014_minival",)
+  # ROI_DENSEPOSE_HEAD:
+  #   NUM_COARSE_SEGM_CHANNELS: 15
+  # ROI_DENSEPOSE_HEAD.MY_PREDICTOR_NAME
+SOLVER:
+  MAX_ITER: 130000
+  STEPS: (100000, 120000)
+
+[11/20 08:19:48] detectron2 INFO: Running with full config:
+BOOTSTRAP_DATASETS: []
+BOOTSTRAP_MODEL:
+  DEVICE: cuda
+  WEIGHTS: ''
+CUDNN_BENCHMARK: false
+DATALOADER:
+  ASPECT_RATIO_GROUPING: true
+  FILTER_EMPTY_ANNOTATIONS: true
+  NUM_WORKERS: 4
+  REPEAT_THRESHOLD: 0.0
+  SAMPLER_TRAIN: TrainingSampler
+DATASETS:
+  CATEGORY_MAPS: {}
+  CLASS_TO_MESH_NAME_MAPPING: {}
+  PRECOMPUTED_PROPOSAL_TOPK_TEST: 1000
+  PRECOMPUTED_PROPOSAL_TOPK_TRAIN: 2000
+  PROPOSAL_FILES_TEST: []
+  PROPOSAL_FILES_TRAIN: []
+  TEST:
+  - densepose_coco_2014_minival
+  TRAIN:
+  - densepose_coco_2014_valminusminival
+  WHITELISTED_CATEGORIES: {}
+DENSEPOSE_EVALUATION:
+  DISTRIBUTED_INFERENCE: true
+  EVALUATE_MESH_ALIGNMENT: false
+  MESH_ALIGNMENT_MESH_NAMES: []
+  MIN_IOU_THRESHOLD: 0.5
+  STORAGE: none
+  TYPE: iou
+GLOBAL:
+  HACK: 1.0
+INPUT:
+  CROP:
+    ENABLED: false
+    SIZE:
+    - 0.9
+    - 0.9
+    TYPE: relative_range
+  FORMAT: BGR
+  MASK_FORMAT: polygon
+  MAX_SIZE_TEST: 1333
+  MAX_SIZE_TRAIN: 1333
+  MIN_SIZE_TEST: 800
+  MIN_SIZE_TRAIN:
+  - 640
+  - 672
+  - 704
+  - 736
+  - 768
+  - 800
+  MIN_SIZE_TRAIN_SAMPLING: choice
+  RANDOM_FLIP: horizontal
+  ROTATION_ANGLES:
+  - 0
+MODEL:
+  ANCHOR_GENERATOR:
+    ANGLES:
+    - - -90
+      - 0
+      - 90
+    ASPECT_RATIOS:
+    - - 0.5
+      - 1.0
+      - 2.0
+    NAME: DefaultAnchorGenerator
+    OFFSET: 0.0
+    SIZES:
+    - - 32
+    - - 64
+    - - 128
+    - - 256
+    - - 512
+  BACKBONE:
+    FREEZE_AT: 2
+    NAME: build_resnet_fpn_backbone
+  DENSEPOSE_ON: true
+  DEVICE: cuda
+  FPN:
+    FUSE_TYPE: sum
+    IN_FEATURES:
+    - res2
+    - res3
+    - res4
+    - res5
+    NORM: ''
+    OUT_CHANNELS: 256
+  HRNET:
+    HRFPN:
+      OUT_CHANNELS: 256
+    STAGE2:
+      BLOCK: BASIC
+      FUSE_METHOD: SUM
+      NUM_BLOCKS:
+      - 4
+      - 4
+      NUM_BRANCHES: 2
+      NUM_CHANNELS:
+      - 32
+      - 64
+      NUM_MODULES: 1
+    STAGE3:
+      BLOCK: BASIC
+      FUSE_METHOD: SUM
+      NUM_BLOCKS:
+      - 4
+      - 4
+      - 4
+      NUM_BRANCHES: 3
+      NUM_CHANNELS:
+      - 32
+      - 64
+      - 128
+      NUM_MODULES: 4
+    STAGE4:
+      BLOCK: BASIC
+      FUSE_METHOD: SUM
+      NUM_BLOCKS:
+      - 4
+      - 4
+      - 4
+      - 4
+      NUM_BRANCHES: 4
+      NUM_CHANNELS:
+      - 32
+      - 64
+      - 128
+      - 256
+      NUM_MODULES: 3
+    STEM_INPLANES: 64
+  KEYPOINT_ON: false
+  LOAD_PROPOSALS: false
+  MASK_ON: false
+  META_ARCHITECTURE: GeneralizedRCNN
+  PANOPTIC_FPN:
+    COMBINE:
+      ENABLED: true
+      INSTANCES_CONFIDENCE_THRESH: 0.5
+      OVERLAP_THRESH: 0.5
+      STUFF_AREA_LIMIT: 4096
+    INSTANCE_LOSS_WEIGHT: 1.0
+  PIXEL_MEAN:
+  - 103.53
+  - 116.28
+  - 123.675
+  PIXEL_STD:
+  - 1.0
+  - 1.0
+  - 1.0
+  PROPOSAL_GENERATOR:
+    MIN_SIZE: 0
+    NAME: RPN
+  RESNETS:
+    DEFORM_MODULATED: false
+    DEFORM_NUM_GROUPS: 1
+    DEFORM_ON_PER_STAGE:
+    - false
+    - false
+    - false
+    - false
+    DEPTH: 50
+    NORM: FrozenBN
+    NUM_GROUPS: 1
+    OUT_FEATURES:
+    - res2
+    - res3
+    - res4
+    - res5
+    RES2_OUT_CHANNELS: 256
+    RES5_DILATION: 1
+    STEM_OUT_CHANNELS: 64
+    STRIDE_IN_1X1: true
+    WIDTH_PER_GROUP: 64
+  RETINANET:
+    BBOX_REG_LOSS_TYPE: smooth_l1
+    BBOX_REG_WEIGHTS: &id002
+    - 1.0
+    - 1.0
+    - 1.0
+    - 1.0
+    FOCAL_LOSS_ALPHA: 0.25
+    FOCAL_LOSS_GAMMA: 2.0
+    IN_FEATURES:
+    - p3
+    - p4
+    - p5
+    - p6
+    - p7
+    IOU_LABELS:
+    - 0
+    - -1
+    - 1
+    IOU_THRESHOLDS:
+    - 0.4
+    - 0.5
+    NMS_THRESH_TEST: 0.5
+    NORM: ''
+    NUM_CLASSES: 80
+    NUM_CONVS: 4
+    PRIOR_PROB: 0.01
+    SCORE_THRESH_TEST: 0.05
+    SMOOTH_L1_LOSS_BETA: 0.1
+    TOPK_CANDIDATES_TEST: 1000
+  ROI_BOX_CASCADE_HEAD:
+    BBOX_REG_WEIGHTS:
+    - &id001
+      - 10.0
+      - 10.0
+      - 5.0
+      - 5.0
+    - - 20.0
+      - 20.0
+      - 10.0
+      - 10.0
+    - - 30.0
+      - 30.0
+      - 15.0
+      - 15.0
+    IOUS:
+    - 0.5
+    - 0.6
+    - 0.7
+  ROI_BOX_HEAD:
+    BBOX_REG_LOSS_TYPE: smooth_l1
+    BBOX_REG_LOSS_WEIGHT: 1.0
+    BBOX_REG_WEIGHTS: *id001
+    CLS_AGNOSTIC_BBOX_REG: false
+    CONV_DIM: 256
+    FC_DIM: 1024
+    NAME: FastRCNNConvFCHead
+    NORM: ''
+    NUM_CONV: 0
+    NUM_FC: 2
+    POOLER_RESOLUTION: 7
+    POOLER_SAMPLING_RATIO: 2
+    POOLER_TYPE: ROIAlign
+    SMOOTH_L1_BETA: 0.0
+    TRAIN_ON_PRED_BOXES: false
+  ROI_DENSEPOSE_HEAD:
+    COARSE_SEGM_TRAINED_BY_MASKS: false
+    CONV_HEAD_DIM: 512
+    CONV_HEAD_KERNEL: 3
+    CSE:
+      EMBEDDERS: {}
+      EMBEDDING_DIST_GAUSS_SIGMA: 0.01
+      EMBEDDING_LR_FACTOR: 1.0
+      EMBED_LOSS_NAME: EmbeddingLoss
+      EMBED_LOSS_WEIGHT: 0.6
+      EMBED_SIZE: 16
+      FEATURES_LR_FACTOR: 1.0
+      GEODESIC_DIST_GAUSS_SIGMA: 0.01
+      PIX_TO_SHAPE_CYCLE_LOSS:
+        ENABLED: false
+        NORM_P: 2
+        NUM_PIXELS_TO_SAMPLE: 100
+        PIXEL_SIGMA: 5.0
+        TEMPERATURE_PIXEL_TO_VERTEX: 0.05
+        TEMPERATURE_VERTEX_TO_PIXEL: 0.05
+        USE_ALL_MESHES_NOT_GT_ONLY: false
+        WEIGHT: 0.0001
+      SHAPE_TO_SHAPE_CYCLE_LOSS:
+        ENABLED: false
+        MAX_NUM_VERTICES: 4936
+        NORM_P: 2
+        TEMPERATURE: 0.05
+        WEIGHT: 0.025
+    DECODER_COMMON_STRIDE: 4
+    DECODER_CONV_DIMS: 256
+    DECODER_NORM: ''
+    DECODER_NUM_CLASSES: 256
+    DECODER_ON: true
+    DECONV_KERNEL: 4
+    DEEPLAB:
+      NONLOCAL_ON: 0
+      NORM: GN
+    FG_IOU_THRESHOLD: 0.7
+    HEATMAP_SIZE: 112
+    INDEX_WEIGHTS: 5.0
+    LOSS_NAME: DensePoseChartWithConfidenceLoss
+    MY_PREDICTOR_NAME: MyDensePoseChartWithConfidencePredictor
+    NAME: DensePoseV1ConvXHead
+    NUM_COARSE_SEGM_CHANNELS: 15
+    NUM_PATCHES: 24
+    NUM_STACKED_CONVS: 8
+    PART_WEIGHTS: 1.0
+    POINT_REGRESSION_WEIGHTS: 0.01
+    POOLER_RESOLUTION: 28
+    POOLER_SAMPLING_RATIO: 2
+    POOLER_TYPE: ROIAlign
+    PREDICTOR_NAME: DensePoseChartWithConfidencePredictor
+    SEGM_CONFIDENCE:
+      ENABLED: false
+      EPSILON: 0.01
+    UP_SCALE: 2
+    UV_CONFIDENCE:
+      ENABLED: false
+      EPSILON: 0.01
+      TYPE: iid_iso
+  ROI_HEADS:
+    BATCH_SIZE_PER_IMAGE: 512
+    IN_FEATURES:
+    - p2
+    - p3
+    - p4
+    - p5
+    IOU_LABELS:
+    - 0
+    - 1
+    IOU_THRESHOLDS:
+    - 0.5
+    NAME: MyROIHeads
+    NMS_THRESH_TEST: 0.5
+    NUM_CLASSES: 1
+    POSITIVE_FRACTION: 0.25
+    PROPOSAL_APPEND_GT: true
+    SCORE_THRESH_TEST: 0.05
+  ROI_KEYPOINT_HEAD:
+    CONV_DIMS:
+    - 512
+    - 512
+    - 512
+    - 512
+    - 512
+    - 512
+    - 512
+    - 512
+    LOSS_WEIGHT: 1.0
+    MIN_KEYPOINTS_PER_IMAGE: 1
+    NAME: KRCNNConvDeconvUpsampleHead
+    NORMALIZE_LOSS_BY_VISIBLE_KEYPOINTS: true
+    NUM_KEYPOINTS: 17
+    POOLER_RESOLUTION: 14
+    POOLER_SAMPLING_RATIO: 0
+    POOLER_TYPE: ROIAlignV2
+  ROI_MASK_HEAD:
+    CLS_AGNOSTIC_MASK: false
+    CONV_DIM: 256
+    NAME: MaskRCNNConvUpsampleHead
+    NORM: ''
+    NUM_CONV: 0
+    POOLER_RESOLUTION: 14
+    POOLER_SAMPLING_RATIO: 0
+    POOLER_TYPE: ROIAlignV2
+  RPN:
+    BATCH_SIZE_PER_IMAGE: 256
+    BBOX_REG_LOSS_TYPE: smooth_l1
+    BBOX_REG_LOSS_WEIGHT: 1.0
+    BBOX_REG_WEIGHTS: *id002
+    BOUNDARY_THRESH: -1
+    CONV_DIMS:
+    - -1
+    HEAD_NAME: StandardRPNHead
+    IN_FEATURES:
+    - p2
+    - p3
+    - p4
+    - p5
+    - p6
+    IOU_LABELS:
+    - 0
+    - -1
+    - 1
+    IOU_THRESHOLDS:
+    - 0.3
+    - 0.7
+    LOSS_WEIGHT: 1.0
+    NMS_THRESH: 0.7
+    POSITIVE_FRACTION: 0.5
+    POST_NMS_TOPK_TEST: 1000
+    POST_NMS_TOPK_TRAIN: 1000
+    PRE_NMS_TOPK_TEST: 1000
+    PRE_NMS_TOPK_TRAIN: 2000
+    SMOOTH_L1_BETA: 0.0
+  SEM_SEG_HEAD:
+    COMMON_STRIDE: 4
+    CONVS_DIM: 128
+    IGNORE_VALUE: 255
+    IN_FEATURES:
+    - p2
+    - p3
+    - p4
+    - p5
+    LOSS_WEIGHT: 1.0
+    NAME: SemSegFPNHead
+    NORM: GN
+    NUM_CLASSES: 54
+  WEIGHTS: model.pkl
+OUTPUT_DIR: ./temp-output/test1
+SEED: -1
+SOLVER:
+  AMP:
+    ENABLED: false
+  BASE_LR: 0.0001
+  BIAS_LR_FACTOR: 1.0
+  CHECKPOINT_PERIOD: 5000
+  CLIP_GRADIENTS:
+    CLIP_TYPE: value
+    CLIP_VALUE: 1.0
+    ENABLED: false
+    NORM_TYPE: 2.0
+  GAMMA: 0.1
+  IMS_PER_BATCH: 8
+  LR_SCHEDULER_NAME: WarmupMultiStepLR
+  MAX_ITER: 520000
+  MOMENTUM: 0.9
+  NESTEROV: false
+  REFERENCE_WORLD_SIZE: 0
+  STEPS:
+  - 400000
+  - 480000
+  WARMUP_FACTOR: 0.1
+  WARMUP_ITERS: 1000
+  WARMUP_METHOD: linear
+  WEIGHT_DECAY: 0.0001
+  WEIGHT_DECAY_BIAS: null
+  WEIGHT_DECAY_NORM: 0.0
+TEST:
+  AUG:
+    ENABLED: false
+    FLIP: true
+    MAX_SIZE: 4000
+    MIN_SIZES:
+    - 400
+    - 500
+    - 600
+    - 700
+    - 800
+    - 900
+    - 1000
+    - 1100
+    - 1200
+    ROTATION_ANGLES: []
+  DETECTIONS_PER_IMAGE: 100
+  EVAL_PERIOD: 10000
+  EXPECTED_RESULTS: []
+  KEYPOINT_OKS_SIGMAS: []
+  PRECISE_BN:
+    ENABLED: false
+    NUM_ITER: 200
+VERSION: 2
+VIS_PERIOD: 0
+
+[11/20 08:19:48] detectron2 INFO: Full config saved to ./temp-output/test1/config.yaml
+[11/20 08:19:48] d2.utils.env INFO: Using a generated random seed 50651666
+[11/20 08:19:56] detectron2 INFO: Rank of current process: 0. World size: 4
+[11/20 08:19:57] detectron2 INFO: Environment info:
+----------------------  ---------------------------------------------------------------------------------------------------------
+sys.platform            linux
+Python                  3.8.12 (default, Oct 12 2021, 13:49:34) [GCC 7.5.0]
+numpy                   1.21.3
+detectron2              0.6 @/home/wangxuanhan/research/detectron/detectron2/detectron2
+Compiler                GCC 9.3
+CUDA compiler           CUDA 11.1
+detectron2 arch flags   8.6
+DETECTRON2_ENV_MODULE   <not set>
+PyTorch                 1.8.0+cu111 @/home/wangxuanhan/software/anaconda3/envs/detectron2/lib/python3.8/site-packages/torch
+PyTorch debug build     False
+GPU available           Yes
+GPU 0,1,2,3             GeForce RTX 3090 (arch=8.6)
+Driver version          455.23.05
+CUDA_HOME               /usr/local/cuda
+Pillow                  8.4.0
+torchvision             0.9.0+cu111 @/home/wangxuanhan/software/anaconda3/envs/detectron2/lib/python3.8/site-packages/torchvision
+torchvision arch flags  3.5, 5.0, 6.0, 7.0, 7.5, 8.0, 8.6
+fvcore                  0.1.5.post20211023
+iopath                  0.1.9
+cv2                     4.5.4-dev
+----------------------  ---------------------------------------------------------------------------------------------------------
+PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.0 Product Build 20191122 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v1.7.0 (Git Hash 7aed236906b1f7a05c0917e5257a1af05e9ff683)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.1
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86
+  - CuDNN 8.0.5
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.1, CUDNN_VERSION=8.0.5, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.8.0, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, 
+
+[11/20 08:19:57] detectron2 INFO: Command line arguments: Namespace(config_file='./myconfig/densepose.yaml', dist_url='tcp://127.0.0.1:50158', eval_only=False, machine_rank=0, num_gpus=4, num_machines=1, opts=['SOLVER.IMS_PER_BATCH', '8', 'SOLVER.BASE_LR', '0.0001', 'SOLVER.MAX_ITER', '520000', 'SOLVER.STEPS', '400000,480000', 'TEST.EVAL_PERIOD', '10000', 'OUTPUT_DIR', './temp-output/test1', 'MODEL.WEIGHTS', 'model.pkl'], resume=False)
+[11/20 08:19:57] detectron2 INFO: Contents of args.config_file=./myconfig/densepose.yaml:
+_BASE_: "Base-DensePose-RCNN-FPN.yaml"
+MODEL:
+  WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
+  RESNETS:
+    DEPTH: 50
+  ROI_HEADS:
+    NAME: "MyROIHeads"
+  ROI_DENSEPOSE_HEAD:
+    # PREDICTOR_NAME: "DensePoseChartWithConfidencePredictor"
+    MY_PREDICTOR_NAME: "MyDensePoseChartWithConfidencePredictor"
+    NUM_COARSE_SEGM_CHANNELS: 15
+DATASETS:
+  TRAIN: ("densepose_coco_2014_valminusminival",)
+  TEST: ("densepose_coco_2014_minival",)
+  # ROI_DENSEPOSE_HEAD:
+  #   NUM_COARSE_SEGM_CHANNELS: 15
+  # ROI_DENSEPOSE_HEAD.MY_PREDICTOR_NAME
+SOLVER:
+  MAX_ITER: 130000
+  STEPS: (100000, 120000)
+
+[11/20 08:19:57] detectron2 INFO: Running with full config:
+BOOTSTRAP_DATASETS: []
+BOOTSTRAP_MODEL:
+  DEVICE: cuda
+  WEIGHTS: ''
+CUDNN_BENCHMARK: false
+DATALOADER:
+  ASPECT_RATIO_GROUPING: true
+  FILTER_EMPTY_ANNOTATIONS: true
+  NUM_WORKERS: 4
+  REPEAT_THRESHOLD: 0.0
+  SAMPLER_TRAIN: TrainingSampler
+DATASETS:
+  CATEGORY_MAPS: {}
+  CLASS_TO_MESH_NAME_MAPPING: {}
+  PRECOMPUTED_PROPOSAL_TOPK_TEST: 1000
+  PRECOMPUTED_PROPOSAL_TOPK_TRAIN: 2000
+  PROPOSAL_FILES_TEST: []
+  PROPOSAL_FILES_TRAIN: []
+  TEST:
+  - densepose_coco_2014_minival
+  TRAIN:
+  - densepose_coco_2014_valminusminival
+  WHITELISTED_CATEGORIES: {}
+DENSEPOSE_EVALUATION:
+  DISTRIBUTED_INFERENCE: true
+  EVALUATE_MESH_ALIGNMENT: false
+  MESH_ALIGNMENT_MESH_NAMES: []
+  MIN_IOU_THRESHOLD: 0.5
+  STORAGE: none
+  TYPE: iou
+GLOBAL:
+  HACK: 1.0
+INPUT:
+  CROP:
+    ENABLED: false
+    SIZE:
+    - 0.9
+    - 0.9
+    TYPE: relative_range
+  FORMAT: BGR
+  MASK_FORMAT: polygon
+  MAX_SIZE_TEST: 1333
+  MAX_SIZE_TRAIN: 1333
+  MIN_SIZE_TEST: 800
+  MIN_SIZE_TRAIN:
+  - 640
+  - 672
+  - 704
+  - 736
+  - 768
+  - 800
+  MIN_SIZE_TRAIN_SAMPLING: choice
+  RANDOM_FLIP: horizontal
+  ROTATION_ANGLES:
+  - 0
+MODEL:
+  ANCHOR_GENERATOR:
+    ANGLES:
+    - - -90
+      - 0
+      - 90
+    ASPECT_RATIOS:
+    - - 0.5
+      - 1.0
+      - 2.0
+    NAME: DefaultAnchorGenerator
+    OFFSET: 0.0
+    SIZES:
+    - - 32
+    - - 64
+    - - 128
+    - - 256
+    - - 512
+  BACKBONE:
+    FREEZE_AT: 2
+    NAME: build_resnet_fpn_backbone
+  DENSEPOSE_ON: true
+  DEVICE: cuda
+  FPN:
+    FUSE_TYPE: sum
+    IN_FEATURES:
+    - res2
+    - res3
+    - res4
+    - res5
+    NORM: ''
+    OUT_CHANNELS: 256
+  HRNET:
+    HRFPN:
+      OUT_CHANNELS: 256
+    STAGE2:
+      BLOCK: BASIC
+      FUSE_METHOD: SUM
+      NUM_BLOCKS:
+      - 4
+      - 4
+      NUM_BRANCHES: 2
+      NUM_CHANNELS:
+      - 32
+      - 64
+      NUM_MODULES: 1
+    STAGE3:
+      BLOCK: BASIC
+      FUSE_METHOD: SUM
+      NUM_BLOCKS:
+      - 4
+      - 4
+      - 4
+      NUM_BRANCHES: 3
+      NUM_CHANNELS:
+      - 32
+      - 64
+      - 128
+      NUM_MODULES: 4
+    STAGE4:
+      BLOCK: BASIC
+      FUSE_METHOD: SUM
+      NUM_BLOCKS:
+      - 4
+      - 4
+      - 4
+      - 4
+      NUM_BRANCHES: 4
+      NUM_CHANNELS:
+      - 32
+      - 64
+      - 128
+      - 256
+      NUM_MODULES: 3
+    STEM_INPLANES: 64
+  KEYPOINT_ON: false
+  LOAD_PROPOSALS: false
+  MASK_ON: false
+  META_ARCHITECTURE: GeneralizedRCNN
+  PANOPTIC_FPN:
+    COMBINE:
+      ENABLED: true
+      INSTANCES_CONFIDENCE_THRESH: 0.5
+      OVERLAP_THRESH: 0.5
+      STUFF_AREA_LIMIT: 4096
+    INSTANCE_LOSS_WEIGHT: 1.0
+  PIXEL_MEAN:
+  - 103.53
+  - 116.28
+  - 123.675
+  PIXEL_STD:
+  - 1.0
+  - 1.0
+  - 1.0
+  PROPOSAL_GENERATOR:
+    MIN_SIZE: 0
+    NAME: RPN
+  RESNETS:
+    DEFORM_MODULATED: false
+    DEFORM_NUM_GROUPS: 1
+    DEFORM_ON_PER_STAGE:
+    - false
+    - false
+    - false
+    - false
+    DEPTH: 50
+    NORM: FrozenBN
+    NUM_GROUPS: 1
+    OUT_FEATURES:
+    - res2
+    - res3
+    - res4
+    - res5
+    RES2_OUT_CHANNELS: 256
+    RES5_DILATION: 1
+    STEM_OUT_CHANNELS: 64
+    STRIDE_IN_1X1: true
+    WIDTH_PER_GROUP: 64
+  RETINANET:
+    BBOX_REG_LOSS_TYPE: smooth_l1
+    BBOX_REG_WEIGHTS: &id002
+    - 1.0
+    - 1.0
+    - 1.0
+    - 1.0
+    FOCAL_LOSS_ALPHA: 0.25
+    FOCAL_LOSS_GAMMA: 2.0
+    IN_FEATURES:
+    - p3
+    - p4
+    - p5
+    - p6
+    - p7
+    IOU_LABELS:
+    - 0
+    - -1
+    - 1
+    IOU_THRESHOLDS:
+    - 0.4
+    - 0.5
+    NMS_THRESH_TEST: 0.5
+    NORM: ''
+    NUM_CLASSES: 80
+    NUM_CONVS: 4
+    PRIOR_PROB: 0.01
+    SCORE_THRESH_TEST: 0.05
+    SMOOTH_L1_LOSS_BETA: 0.1
+    TOPK_CANDIDATES_TEST: 1000
+  ROI_BOX_CASCADE_HEAD:
+    BBOX_REG_WEIGHTS:
+    - &id001
+      - 10.0
+      - 10.0
+      - 5.0
+      - 5.0
+    - - 20.0
+      - 20.0
+      - 10.0
+      - 10.0
+    - - 30.0
+      - 30.0
+      - 15.0
+      - 15.0
+    IOUS:
+    - 0.5
+    - 0.6
+    - 0.7
+  ROI_BOX_HEAD:
+    BBOX_REG_LOSS_TYPE: smooth_l1
+    BBOX_REG_LOSS_WEIGHT: 1.0
+    BBOX_REG_WEIGHTS: *id001
+    CLS_AGNOSTIC_BBOX_REG: false
+    CONV_DIM: 256
+    FC_DIM: 1024
+    NAME: FastRCNNConvFCHead
+    NORM: ''
+    NUM_CONV: 0
+    NUM_FC: 2
+    POOLER_RESOLUTION: 7
+    POOLER_SAMPLING_RATIO: 2
+    POOLER_TYPE: ROIAlign
+    SMOOTH_L1_BETA: 0.0
+    TRAIN_ON_PRED_BOXES: false
+  ROI_DENSEPOSE_HEAD:
+    COARSE_SEGM_TRAINED_BY_MASKS: false
+    CONV_HEAD_DIM: 512
+    CONV_HEAD_KERNEL: 3
+    CSE:
+      EMBEDDERS: {}
+      EMBEDDING_DIST_GAUSS_SIGMA: 0.01
+      EMBEDDING_LR_FACTOR: 1.0
+      EMBED_LOSS_NAME: EmbeddingLoss
+      EMBED_LOSS_WEIGHT: 0.6
+      EMBED_SIZE: 16
+      FEATURES_LR_FACTOR: 1.0
+      GEODESIC_DIST_GAUSS_SIGMA: 0.01
+      PIX_TO_SHAPE_CYCLE_LOSS:
+        ENABLED: false
+        NORM_P: 2
+        NUM_PIXELS_TO_SAMPLE: 100
+        PIXEL_SIGMA: 5.0
+        TEMPERATURE_PIXEL_TO_VERTEX: 0.05
+        TEMPERATURE_VERTEX_TO_PIXEL: 0.05
+        USE_ALL_MESHES_NOT_GT_ONLY: false
+        WEIGHT: 0.0001
+      SHAPE_TO_SHAPE_CYCLE_LOSS:
+        ENABLED: false
+        MAX_NUM_VERTICES: 4936
+        NORM_P: 2
+        TEMPERATURE: 0.05
+        WEIGHT: 0.025
+    DECODER_COMMON_STRIDE: 4
+    DECODER_CONV_DIMS: 256
+    DECODER_NORM: ''
+    DECODER_NUM_CLASSES: 256
+    DECODER_ON: true
+    DECONV_KERNEL: 4
+    DEEPLAB:
+      NONLOCAL_ON: 0
+      NORM: GN
+    FG_IOU_THRESHOLD: 0.7
+    HEATMAP_SIZE: 112
+    INDEX_WEIGHTS: 5.0
+    LOSS_NAME: DensePoseChartWithConfidenceLoss
+    MY_PREDICTOR_NAME: MyDensePoseChartWithConfidencePredictor
+    NAME: DensePoseV1ConvXHead
+    NUM_COARSE_SEGM_CHANNELS: 15
+    NUM_PATCHES: 24
+    NUM_STACKED_CONVS: 8
+    PART_WEIGHTS: 1.0
+    POINT_REGRESSION_WEIGHTS: 0.01
+    POOLER_RESOLUTION: 28
+    POOLER_SAMPLING_RATIO: 2
+    POOLER_TYPE: ROIAlign
+    PREDICTOR_NAME: DensePoseChartWithConfidencePredictor
+    SEGM_CONFIDENCE:
+      ENABLED: false
+      EPSILON: 0.01
+    UP_SCALE: 2
+    UV_CONFIDENCE:
+      ENABLED: false
+      EPSILON: 0.01
+      TYPE: iid_iso
+  ROI_HEADS:
+    BATCH_SIZE_PER_IMAGE: 512
+    IN_FEATURES:
+    - p2
+    - p3
+    - p4
+    - p5
+    IOU_LABELS:
+    - 0
+    - 1
+    IOU_THRESHOLDS:
+    - 0.5
+    NAME: MyROIHeads
+    NMS_THRESH_TEST: 0.5
+    NUM_CLASSES: 1
+    POSITIVE_FRACTION: 0.25
+    PROPOSAL_APPEND_GT: true
+    SCORE_THRESH_TEST: 0.05
+  ROI_KEYPOINT_HEAD:
+    CONV_DIMS:
+    - 512
+    - 512
+    - 512
+    - 512
+    - 512
+    - 512
+    - 512
+    - 512
+    LOSS_WEIGHT: 1.0
+    MIN_KEYPOINTS_PER_IMAGE: 1
+    NAME: KRCNNConvDeconvUpsampleHead
+    NORMALIZE_LOSS_BY_VISIBLE_KEYPOINTS: true
+    NUM_KEYPOINTS: 17
+    POOLER_RESOLUTION: 14
+    POOLER_SAMPLING_RATIO: 0
+    POOLER_TYPE: ROIAlignV2
+  ROI_MASK_HEAD:
+    CLS_AGNOSTIC_MASK: false
+    CONV_DIM: 256
+    NAME: MaskRCNNConvUpsampleHead
+    NORM: ''
+    NUM_CONV: 0
+    POOLER_RESOLUTION: 14
+    POOLER_SAMPLING_RATIO: 0
+    POOLER_TYPE: ROIAlignV2
+  RPN:
+    BATCH_SIZE_PER_IMAGE: 256
+    BBOX_REG_LOSS_TYPE: smooth_l1
+    BBOX_REG_LOSS_WEIGHT: 1.0
+    BBOX_REG_WEIGHTS: *id002
+    BOUNDARY_THRESH: -1
+    CONV_DIMS:
+    - -1
+    HEAD_NAME: StandardRPNHead
+    IN_FEATURES:
+    - p2
+    - p3
+    - p4
+    - p5
+    - p6
+    IOU_LABELS:
+    - 0
+    - -1
+    - 1
+    IOU_THRESHOLDS:
+    - 0.3
+    - 0.7
+    LOSS_WEIGHT: 1.0
+    NMS_THRESH: 0.7
+    POSITIVE_FRACTION: 0.5
+    POST_NMS_TOPK_TEST: 1000
+    POST_NMS_TOPK_TRAIN: 1000
+    PRE_NMS_TOPK_TEST: 1000
+    PRE_NMS_TOPK_TRAIN: 2000
+    SMOOTH_L1_BETA: 0.0
+  SEM_SEG_HEAD:
+    COMMON_STRIDE: 4
+    CONVS_DIM: 128
+    IGNORE_VALUE: 255
+    IN_FEATURES:
+    - p2
+    - p3
+    - p4
+    - p5
+    LOSS_WEIGHT: 1.0
+    NAME: SemSegFPNHead
+    NORM: GN
+    NUM_CLASSES: 54
+  WEIGHTS: model.pkl
+OUTPUT_DIR: ./temp-output/test1
+SEED: -1
+SOLVER:
+  AMP:
+    ENABLED: false
+  BASE_LR: 0.0001
+  BIAS_LR_FACTOR: 1.0
+  CHECKPOINT_PERIOD: 5000
+  CLIP_GRADIENTS:
+    CLIP_TYPE: value
+    CLIP_VALUE: 1.0
+    ENABLED: false
+    NORM_TYPE: 2.0
+  GAMMA: 0.1
+  IMS_PER_BATCH: 8
+  LR_SCHEDULER_NAME: WarmupMultiStepLR
+  MAX_ITER: 520000
+  MOMENTUM: 0.9
+  NESTEROV: false
+  REFERENCE_WORLD_SIZE: 0
+  STEPS:
+  - 400000
+  - 480000
+  WARMUP_FACTOR: 0.1
+  WARMUP_ITERS: 1000
+  WARMUP_METHOD: linear
+  WEIGHT_DECAY: 0.0001
+  WEIGHT_DECAY_BIAS: null
+  WEIGHT_DECAY_NORM: 0.0
+TEST:
+  AUG:
+    ENABLED: false
+    FLIP: true
+    MAX_SIZE: 4000
+    MIN_SIZES:
+    - 400
+    - 500
+    - 600
+    - 700
+    - 800
+    - 900
+    - 1000
+    - 1100
+    - 1200
+    ROTATION_ANGLES: []
+  DETECTIONS_PER_IMAGE: 100
+  EVAL_PERIOD: 10000
+  EXPECTED_RESULTS: []
+  KEYPOINT_OKS_SIGMAS: []
+  PRECISE_BN:
+    ENABLED: false
+    NUM_ITER: 200
+VERSION: 2
+VIS_PERIOD: 0
+
+[11/20 08:19:57] detectron2 INFO: Full config saved to ./temp-output/test1/config.yaml
+[11/20 08:19:57] d2.utils.env INFO: Using a generated random seed 59781998
+[11/20 08:19:59] d2.engine.defaults INFO: Model:
+GeneralizedRCNN(
+  (backbone): FPN(
+    (fpn_lateral2): Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1))
+    (fpn_output2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (fpn_lateral3): Conv2d(512, 256, kernel_size=(1, 1), stride=(1, 1))
+    (fpn_output3): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (fpn_lateral4): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1))
+    (fpn_output4): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (fpn_lateral5): Conv2d(2048, 256, kernel_size=(1, 1), stride=(1, 1))
+    (fpn_output5): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (top_block): LastLevelMaxPool()
+    (bottom_up): ResNet(
+      (stem): BasicStem(
+        (conv1): Conv2d(
+          3, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False
+          (norm): FrozenBatchNorm2d(num_features=64, eps=1e-05)
+        )
+      )
+      (res2): Sequential(
+        (0): BottleneckBlock(
+          (shortcut): Conv2d(
+            64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=256, eps=1e-05)
+          )
+          (conv1): Conv2d(
+            64, 64, kernel_size=(1, 1), stride=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=64, eps=1e-05)
+          )
+          (conv2): Conv2d(
+            64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=64, eps=1e-05)
+          )
+          (conv3): Conv2d(
+            64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=256, eps=1e-05)
+          )
+        )
+        (1): BottleneckBlock(
+          (conv1): Conv2d(
+            256, 64, kernel_size=(1, 1), stride=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=64, eps=1e-05)
+          )
+          (conv2): Conv2d(
+            64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=64, eps=1e-05)
+          )
+          (conv3): Conv2d(
+            64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=256, eps=1e-05)
+          )
+        )
+        (2): BottleneckBlock(
+          (conv1): Conv2d(
+            256, 64, kernel_size=(1, 1), stride=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=64, eps=1e-05)
+          )
+          (conv2): Conv2d(
+            64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=64, eps=1e-05)
+          )
+          (conv3): Conv2d(
+            64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=256, eps=1e-05)
+          )
+        )
+      )
+      (res3): Sequential(
+        (0): BottleneckBlock(
+          (shortcut): Conv2d(
+            256, 512, kernel_size=(1, 1), stride=(2, 2), bias=False
+            (norm): FrozenBatchNorm2d(num_features=512, eps=1e-05)
+          )
+          (conv1): Conv2d(
+            256, 128, kernel_size=(1, 1), stride=(2, 2), bias=False
+            (norm): FrozenBatchNorm2d(num_features=128, eps=1e-05)
+          )
+          (conv2): Conv2d(
+            128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=128, eps=1e-05)
+          )
+          (conv3): Conv2d(
+            128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=512, eps=1e-05)
+          )
+        )
+        (1): BottleneckBlock(
+          (conv1): Conv2d(
+            512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=128, eps=1e-05)
+          )
+          (conv2): Conv2d(
+            128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=128, eps=1e-05)
+          )
+          (conv3): Conv2d(
+            128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=512, eps=1e-05)
+          )
+        )
+        (2): BottleneckBlock(
+          (conv1): Conv2d(
+            512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=128, eps=1e-05)
+          )
+          (conv2): Conv2d(
+            128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=128, eps=1e-05)
+          )
+          (conv3): Conv2d(
+            128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=512, eps=1e-05)
+          )
+        )
+        (3): BottleneckBlock(
+          (conv1): Conv2d(
+            512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=128, eps=1e-05)
+          )
+          (conv2): Conv2d(
+            128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=128, eps=1e-05)
+          )
+          (conv3): Conv2d(
+            128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=512, eps=1e-05)
+          )
+        )
+      )
+      (res4): Sequential(
+        (0): BottleneckBlock(
+          (shortcut): Conv2d(
+            512, 1024, kernel_size=(1, 1), stride=(2, 2), bias=False
+            (norm): FrozenBatchNorm2d(num_features=1024, eps=1e-05)
+          )
+          (conv1): Conv2d(
+            512, 256, kernel_size=(1, 1), stride=(2, 2), bias=False
+            (norm): FrozenBatchNorm2d(num_features=256, eps=1e-05)
+          )
+          (conv2): Conv2d(
+            256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=256, eps=1e-05)
+          )
+          (conv3): Conv2d(
+            256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=1024, eps=1e-05)
+          )
+        )
+        (1): BottleneckBlock(
+          (conv1): Conv2d(
+            1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=256, eps=1e-05)
+          )
+          (conv2): Conv2d(
+            256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=256, eps=1e-05)
+          )
+          (conv3): Conv2d(
+            256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=1024, eps=1e-05)
+          )
+        )
+        (2): BottleneckBlock(
+          (conv1): Conv2d(
+            1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=256, eps=1e-05)
+          )
+          (conv2): Conv2d(
+            256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=256, eps=1e-05)
+          )
+          (conv3): Conv2d(
+            256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=1024, eps=1e-05)
+          )
+        )
+        (3): BottleneckBlock(
+          (conv1): Conv2d(
+            1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=256, eps=1e-05)
+          )
+          (conv2): Conv2d(
+            256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=256, eps=1e-05)
+          )
+          (conv3): Conv2d(
+            256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=1024, eps=1e-05)
+          )
+        )
+        (4): BottleneckBlock(
+          (conv1): Conv2d(
+            1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=256, eps=1e-05)
+          )
+          (conv2): Conv2d(
+            256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=256, eps=1e-05)
+          )
+          (conv3): Conv2d(
+            256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=1024, eps=1e-05)
+          )
+        )
+        (5): BottleneckBlock(
+          (conv1): Conv2d(
+            1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=256, eps=1e-05)
+          )
+          (conv2): Conv2d(
+            256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=256, eps=1e-05)
+          )
+          (conv3): Conv2d(
+            256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=1024, eps=1e-05)
+          )
+        )
+      )
+      (res5): Sequential(
+        (0): BottleneckBlock(
+          (shortcut): Conv2d(
+            1024, 2048, kernel_size=(1, 1), stride=(2, 2), bias=False
+            (norm): FrozenBatchNorm2d(num_features=2048, eps=1e-05)
+          )
+          (conv1): Conv2d(
+            1024, 512, kernel_size=(1, 1), stride=(2, 2), bias=False
+            (norm): FrozenBatchNorm2d(num_features=512, eps=1e-05)
+          )
+          (conv2): Conv2d(
+            512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=512, eps=1e-05)
+          )
+          (conv3): Conv2d(
+            512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=2048, eps=1e-05)
+          )
+        )
+        (1): BottleneckBlock(
+          (conv1): Conv2d(
+            2048, 512, kernel_size=(1, 1), stride=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=512, eps=1e-05)
+          )
+          (conv2): Conv2d(
+            512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=512, eps=1e-05)
+          )
+          (conv3): Conv2d(
+            512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=2048, eps=1e-05)
+          )
+        )
+        (2): BottleneckBlock(
+          (conv1): Conv2d(
+            2048, 512, kernel_size=(1, 1), stride=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=512, eps=1e-05)
+          )
+          (conv2): Conv2d(
+            512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=512, eps=1e-05)
+          )
+          (conv3): Conv2d(
+            512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False
+            (norm): FrozenBatchNorm2d(num_features=2048, eps=1e-05)
+          )
+        )
+      )
+    )
+  )
+  (proposal_generator): RPN(
+    (rpn_head): StandardRPNHead(
+      (conv): Conv2d(
+        256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)
+        (activation): ReLU()
+      )
+      (objectness_logits): Conv2d(256, 3, kernel_size=(1, 1), stride=(1, 1))
+      (anchor_deltas): Conv2d(256, 12, kernel_size=(1, 1), stride=(1, 1))
+    )
+    (anchor_generator): DefaultAnchorGenerator(
+      (cell_anchors): BufferList()
+    )
+  )
+  (roi_heads): MyROIHeads(
+    (box_pooler): ROIPooler(
+      (level_poolers): ModuleList(
+        (0): ROIAlign(output_size=(7, 7), spatial_scale=0.25, sampling_ratio=2, aligned=False)
+        (1): ROIAlign(output_size=(7, 7), spatial_scale=0.125, sampling_ratio=2, aligned=False)
+        (2): ROIAlign(output_size=(7, 7), spatial_scale=0.0625, sampling_ratio=2, aligned=False)
+        (3): ROIAlign(output_size=(7, 7), spatial_scale=0.03125, sampling_ratio=2, aligned=False)
+      )
+    )
+    (box_head): FastRCNNConvFCHead(
+      (flatten): Flatten(start_dim=1, end_dim=-1)
+      (fc1): Linear(in_features=12544, out_features=1024, bias=True)
+      (fc_relu1): ReLU()
+      (fc2): Linear(in_features=1024, out_features=1024, bias=True)
+      (fc_relu2): ReLU()
+    )
+    (box_predictor): FastRCNNOutputLayers(
+      (cls_score): Linear(in_features=1024, out_features=2, bias=True)
+      (bbox_pred): Linear(in_features=1024, out_features=4, bias=True)
+    )
+    (decoder): Decoder(
+      (p2): Sequential(
+        (0): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+      (p3): Sequential(
+        (0): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): Upsample(scale_factor=2.0, mode=bilinear)
+      )
+      (p4): Sequential(
+        (0): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): Upsample(scale_factor=2.0, mode=bilinear)
+        (2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (3): Upsample(scale_factor=2.0, mode=bilinear)
+      )
+      (p5): Sequential(
+        (0): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): Upsample(scale_factor=2.0, mode=bilinear)
+        (2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (3): Upsample(scale_factor=2.0, mode=bilinear)
+        (4): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (5): Upsample(scale_factor=2.0, mode=bilinear)
+      )
+      (predictor): Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1))
+    )
+    (densepose_pooler): ROIPooler(
+      (level_poolers): ModuleList(
+        (0): ROIAlign(output_size=(28, 28), spatial_scale=0.25, sampling_ratio=2, aligned=False)
+      )
+    )
+    (densepose_head): DensePoseV1ConvXHead(
+      (body_conv_fcn1): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (body_conv_fcn2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (body_conv_fcn3): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (body_conv_fcn4): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (body_conv_fcn5): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (body_conv_fcn6): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (body_conv_fcn7): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (body_conv_fcn8): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (densepose_predictor): DensePoseChartWithConfidencePredictor(
+      (ann_index_lowres): ConvTranspose2d(512, 15, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (index_uv_lowres): ConvTranspose2d(512, 25, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (u_lowres): ConvTranspose2d(512, 25, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (v_lowres): ConvTranspose2d(512, 25, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+    )
+    (concate_part_densepose_head): ConcatePartDensePoseHead(
+      (model): Sequential(
+        (0): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (3): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (4): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (5): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (6): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (7): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+    )
+    (my_densepose_predictor): MyDensePoseChartWithConfidencePredictor(
+      (part_I0): ConvTranspose2d(512, 1, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_I1): ConvTranspose2d(512, 2, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_I2): ConvTranspose2d(512, 1, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_I3): ConvTranspose2d(512, 1, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_I4): ConvTranspose2d(512, 1, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_I5): ConvTranspose2d(512, 1, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_I6): ConvTranspose2d(512, 2, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_I7): ConvTranspose2d(512, 2, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_I8): ConvTranspose2d(512, 2, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_I9): ConvTranspose2d(512, 2, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_I10): ConvTranspose2d(512, 2, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_I11): ConvTranspose2d(512, 2, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_I12): ConvTranspose2d(512, 2, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_I13): ConvTranspose2d(512, 2, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_I14): ConvTranspose2d(512, 2, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_U0): ConvTranspose2d(512, 1, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_U1): ConvTranspose2d(512, 2, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_U2): ConvTranspose2d(512, 1, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_U3): ConvTranspose2d(512, 1, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_U4): ConvTranspose2d(512, 1, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_U5): ConvTranspose2d(512, 1, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_U6): ConvTranspose2d(512, 2, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_U7): ConvTranspose2d(512, 2, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_U8): ConvTranspose2d(512, 2, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_U9): ConvTranspose2d(512, 2, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_U10): ConvTranspose2d(512, 2, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_U11): ConvTranspose2d(512, 2, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_U12): ConvTranspose2d(512, 2, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_U13): ConvTranspose2d(512, 2, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_U14): ConvTranspose2d(512, 2, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_V0): ConvTranspose2d(512, 1, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_V1): ConvTranspose2d(512, 2, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_V2): ConvTranspose2d(512, 1, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_V3): ConvTranspose2d(512, 1, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_V4): ConvTranspose2d(512, 1, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_V5): ConvTranspose2d(512, 1, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_V6): ConvTranspose2d(512, 2, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_V7): ConvTranspose2d(512, 2, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_V8): ConvTranspose2d(512, 2, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_V9): ConvTranspose2d(512, 2, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_V10): ConvTranspose2d(512, 2, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_V11): ConvTranspose2d(512, 2, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_V12): ConvTranspose2d(512, 2, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_V13): ConvTranspose2d(512, 2, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+      (part_V14): ConvTranspose2d(512, 2, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+    )
+  )
+)
+[11/20 08:19:59] densepose.data.dataset_mapper INFO: DensePose-specific augmentation used in training: RandomRotation(angle=[0], expand=False, sample_style='choice')
+[11/20 08:20:01] densepose.data.datasets.coco INFO: Loading datasets/coco/annotations/densepose_valminusminival2014.json takes 2.54 seconds.
+[11/20 08:20:01] densepose.data.datasets.coco INFO: Dataset densepose_coco_2014_valminusminival categories: {1: 'person'}
+[11/20 08:20:01] densepose.data.datasets.coco INFO: Loaded 5984 images in COCO format from datasets/coco/annotations/densepose_valminusminival2014.json
+[11/20 08:20:02] densepose.data.build INFO: Dataset densepose_coco_2014_valminusminival: category ID to contiguous ID mapping:
+[11/20 08:20:02] densepose.data.build INFO: 1 (person) -> 0
+[11/20 08:20:02] d2.data.build INFO: Distribution of instances among all 1 categories:
+[36m|  category  | #instances   |
+|:----------:|:-------------|
+|   person   | 24640        |
+|            |              |[0m
+[11/20 08:20:02] d2.data.build INFO: Using training sampler TrainingSampler
+[11/20 08:20:02] d2.data.common INFO: Serializing 5984 elements to byte tensors and concatenating them all ...
+[11/20 08:20:02] d2.data.common INFO: Serialized dataset takes 75.95 MiB
+[11/20 08:20:03] fvcore.common.checkpoint INFO: [Checkpointer] Loading from model.pkl ...
+[11/20 08:20:03] fvcore.common.checkpoint INFO: Reading a file from 'Detectron2 Model Zoo'
+[11/20 08:20:04] fvcore.common.checkpoint WARNING: Skip loading parameter 'roi_heads.densepose_predictor.ann_index_lowres.weight' to the model due to incompatible shapes: (512, 2, 4, 4) in the checkpoint but (512, 15, 4, 4) in the model! You might want to double check if this is expected.
+[11/20 08:20:04] fvcore.common.checkpoint WARNING: Skip loading parameter 'roi_heads.densepose_predictor.ann_index_lowres.bias' to the model due to incompatible shapes: (2,) in the checkpoint but (15,) in the model! You might want to double check if this is expected.
+[11/20 08:20:04] fvcore.common.checkpoint WARNING: Some model parameters or buffers are not found in the checkpoint:
+[34mroi_heads.concate_part_densepose_head.model.0.{bias, weight}[0m
+[34mroi_heads.concate_part_densepose_head.model.1.{bias, weight}[0m
+[34mroi_heads.concate_part_densepose_head.model.2.{bias, weight}[0m
+[34mroi_heads.concate_part_densepose_head.model.3.{bias, weight}[0m
+[34mroi_heads.concate_part_densepose_head.model.4.{bias, weight}[0m
+[34mroi_heads.concate_part_densepose_head.model.5.{bias, weight}[0m
+[34mroi_heads.concate_part_densepose_head.model.6.{bias, weight}[0m
+[34mroi_heads.concate_part_densepose_head.model.7.{bias, weight}[0m
+[34mroi_heads.densepose_predictor.ann_index_lowres.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_I0.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_I1.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_I10.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_I11.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_I12.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_I13.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_I14.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_I2.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_I3.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_I4.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_I5.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_I6.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_I7.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_I8.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_I9.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_U0.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_U1.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_U10.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_U11.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_U12.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_U13.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_U14.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_U2.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_U3.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_U4.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_U5.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_U6.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_U7.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_U8.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_U9.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_V0.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_V1.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_V10.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_V11.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_V12.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_V13.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_V14.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_V2.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_V3.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_V4.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_V5.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_V6.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_V7.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_V8.{bias, weight}[0m
+[34mroi_heads.my_densepose_predictor.part_V9.{bias, weight}[0m
+[11/20 08:20:04] d2.engine.train_loop INFO: Starting training from iteration 0
+[11/20 08:20:29] d2.utils.events INFO:  eta: 5 days, 0:28:01  iter: 19  total_loss: 21  loss_cls: 0.07345  loss_box_reg: 0.1253  loss_densepose_U: 0.05657  loss_densepose_V: 0.05591  loss_densepose_I: 0.3305  loss_densepose_S: 13.87  loss_part_I: 3.218  loss_part_U: 1.505  loss_part_V: 1.68  loss_rpn_cls: 0.005193  loss_rpn_loc: 0.02007  time: 0.8112  data_time: 0.4402  lr: 1.171e-05  max_mem: 9407M
+[11/20 08:20:29] densepose.engine.trainer INFO: 
+[11/20 08:20:45] d2.utils.events INFO:  eta: 4 days, 19:02:50  iter: 39  total_loss: 20.08  loss_cls: 0.0743  loss_box_reg: 0.1204  loss_densepose_U: 0.04807  loss_densepose_V: 0.05103  loss_densepose_I: 0.3375  loss_densepose_S: 13.22  loss_part_I: 3.218  loss_part_U: 1.328  loss_part_V: 1.538  loss_rpn_cls: 0.008302  loss_rpn_loc: 0.02367  time: 0.8186  data_time: 0.0166  lr: 1.351e-05  max_mem: 9407M
+[11/20 08:20:45] densepose.engine.trainer INFO: 
+[11/20 08:21:01] d2.utils.events INFO:  eta: 4 days, 19:02:34  iter: 59  total_loss: 18.9  loss_cls: 0.08187  loss_box_reg: 0.1443  loss_densepose_U: 0.05023  loss_densepose_V: 0.04797  loss_densepose_I: 0.3324  loss_densepose_S: 12.23  loss_part_I: 3.218  loss_part_U: 1.31  loss_part_V: 1.543  loss_rpn_cls: 0.006336  loss_rpn_loc: 0.02157  time: 0.8045  data_time: 0.0173  lr: 1.531e-05  max_mem: 9407M
+[11/20 08:21:01] densepose.engine.trainer INFO: 
+[11/20 08:21:17] d2.utils.events INFO:  eta: 4 days, 19:02:18  iter: 79  total_loss: 17.85  loss_cls: 0.08173  loss_box_reg: 0.1391  loss_densepose_U: 0.04599  loss_densepose_V: 0.04913  loss_densepose_I: 0.3344  loss_densepose_S: 11.2  loss_part_I: 3.218  loss_part_U: 1.313  loss_part_V: 1.482  loss_rpn_cls: 0.005661  loss_rpn_loc: 0.02098  time: 0.8081  data_time: 0.0155  lr: 1.711e-05  max_mem: 10183M
+[11/20 08:21:17] densepose.engine.trainer INFO: 
+[11/20 08:21:34] d2.utils.events INFO:  eta: 4 days, 18:40:34  iter: 99  total_loss: 16.63  loss_cls: 0.08698  loss_box_reg: 0.1608  loss_densepose_U: 0.0456  loss_densepose_V: 0.04778  loss_densepose_I: 0.3304  loss_densepose_S: 10.01  loss_part_I: 3.217  loss_part_U: 1.217  loss_part_V: 1.424  loss_rpn_cls: 0.007745  loss_rpn_loc: 0.02519  time: 0.8186  data_time: 0.0165  lr: 1.891e-05  max_mem: 10183M
+[11/20 08:21:35] densepose.engine.trainer INFO: 
+[11/20 08:21:51] d2.utils.events INFO:  eta: 4 days, 18:50:43  iter: 119  total_loss: 15.17  loss_cls: 0.07014  loss_box_reg: 0.1217  loss_densepose_U: 0.04601  loss_densepose_V: 0.0489  loss_densepose_I: 0.3059  loss_densepose_S: 8.584  loss_part_I: 3.216  loss_part_U: 1.324  loss_part_V: 1.524  loss_rpn_cls: 0.004306  loss_rpn_loc: 0.01749  time: 0.8188  data_time: 0.0170  lr: 2.071e-05  max_mem: 10183M
+[11/20 08:21:51] densepose.engine.trainer INFO: 
+[11/20 08:22:08] d2.utils.events INFO:  eta: 4 days, 18:40:02  iter: 139  total_loss: 14.02  loss_cls: 0.08225  loss_box_reg: 0.1364  loss_densepose_U: 0.04586  loss_densepose_V: 0.04788  loss_densepose_I: 0.328  loss_densepose_S: 7.84  loss_part_I: 3.216  loss_part_U: 1.148  loss_part_V: 1.279  loss_rpn_cls: 0.005404  loss_rpn_loc: 0.01797  time: 0.8251  data_time: 0.0162  lr: 2.251e-05  max_mem: 10183M
+[11/20 08:22:08] densepose.engine.trainer INFO: 
+[11/20 08:22:27] d2.utils.events INFO:  eta: 4 days, 19:01:14  iter: 159  total_loss: 13.11  loss_cls: 0.07819  loss_box_reg: 0.1558  loss_densepose_U: 0.05074  loss_densepose_V: 0.05222  loss_densepose_I: 0.3129  loss_densepose_S: 6.687  loss_part_I: 3.215  loss_part_U: 1.148  loss_part_V: 1.29  loss_rpn_cls: 0.01068  loss_rpn_loc: 0.02408  time: 0.8381  data_time: 0.0179  lr: 2.431e-05  max_mem: 10183M
+[11/20 08:22:27] densepose.engine.trainer INFO: 
+[11/20 08:22:45] d2.utils.events INFO:  eta: 4 days, 19:13:05  iter: 179  total_loss: 12.34  loss_cls: 0.06765  loss_box_reg: 0.1253  loss_densepose_U: 0.06429  loss_densepose_V: 0.06569  loss_densepose_I: 0.3436  loss_densepose_S: 6.348  loss_part_I: 3.212  loss_part_U: 0.9818  loss_part_V: 1.09  loss_rpn_cls: 0.005786  loss_rpn_loc: 0.01966  time: 0.8490  data_time: 0.0180  lr: 2.611e-05  max_mem: 10183M
+[11/20 08:22:45] densepose.engine.trainer INFO: 
+[11/20 08:23:02] d2.utils.events INFO:  eta: 4 days, 19:19:36  iter: 199  total_loss: 11.59  loss_cls: 0.08757  loss_box_reg: 0.1296  loss_densepose_U: 0.06501  loss_densepose_V: 0.06566  loss_densepose_I: 0.3508  loss_densepose_S: 6.326  loss_part_I: 3.204  loss_part_U: 0.6387  loss_part_V: 0.7036  loss_rpn_cls: 0.005889  loss_rpn_loc: 0.01766  time: 0.8479  data_time: 0.0172  lr: 2.791e-05  max_mem: 10183M
+[11/20 08:23:02] densepose.engine.trainer INFO: 
+[11/20 08:23:19] d2.utils.events INFO:  eta: 4 days, 19:12:33  iter: 219  total_loss: 11.05  loss_cls: 0.08157  loss_box_reg: 0.1439  loss_densepose_U: 0.06769  loss_densepose_V: 0.06266  loss_densepose_I: 0.3423  loss_densepose_S: 5.964  loss_part_I: 3.193  loss_part_U: 0.4872  loss_part_V: 0.4961  loss_rpn_cls: 0.008071  loss_rpn_loc: 0.02021  time: 0.8450  data_time: 0.0166  lr: 2.971e-05  max_mem: 10183M
+[11/20 08:23:19] densepose.engine.trainer INFO: 
+[11/20 08:23:36] d2.utils.events INFO:  eta: 4 days, 19:33:10  iter: 239  total_loss: 10.5  loss_cls: 0.0809  loss_box_reg: 0.1448  loss_densepose_U: 0.06954  loss_densepose_V: 0.06611  loss_densepose_I: 0.3477  loss_densepose_S: 5.788  loss_part_I: 3.158  loss_part_U: 0.4495  loss_part_V: 0.4451  loss_rpn_cls: 0.009688  loss_rpn_loc: 0.0187  time: 0.8481  data_time: 0.0182  lr: 3.151e-05  max_mem: 10183M
+[11/20 08:23:36] densepose.engine.trainer INFO: 
+[11/20 08:23:53] d2.utils.events INFO:  eta: 4 days, 19:47:43  iter: 259  total_loss: 10.22  loss_cls: 0.08299  loss_box_reg: 0.1347  loss_densepose_U: 0.07278  loss_densepose_V: 0.06728  loss_densepose_I: 0.3426  loss_densepose_S: 5.512  loss_part_I: 3.129  loss_part_U: 0.3915  loss_part_V: 0.4229  loss_rpn_cls: 0.004789  loss_rpn_loc: 0.02122  time: 0.8487  data_time: 0.0171  lr: 3.331e-05  max_mem: 10183M
+[11/20 08:23:53] densepose.engine.trainer INFO: 
+[11/20 08:24:10] d2.utils.events INFO:  eta: 4 days, 19:52:45  iter: 279  total_loss: 9.915  loss_cls: 0.08788  loss_box_reg: 0.1524  loss_densepose_U: 0.07316  loss_densepose_V: 0.07903  loss_densepose_I: 0.3678  loss_densepose_S: 5.311  loss_part_I: 3.099  loss_part_U: 0.3804  loss_part_V: 0.3636  loss_rpn_cls: 0.008489  loss_rpn_loc: 0.02088  time: 0.8490  data_time: 0.0169  lr: 3.511e-05  max_mem: 10183M
+[11/20 08:24:10] densepose.engine.trainer INFO: 
+[11/20 08:24:26] d2.utils.events INFO:  eta: 4 days, 19:32:22  iter: 299  total_loss: 9.91  loss_cls: 0.07125  loss_box_reg: 0.1366  loss_densepose_U: 0.0726  loss_densepose_V: 0.07024  loss_densepose_I: 0.3537  loss_densepose_S: 5.327  loss_part_I: 3.074  loss_part_U: 0.3605  loss_part_V: 0.3357  loss_rpn_cls: 0.008662  loss_rpn_loc: 0.02942  time: 0.8453  data_time: 0.0156  lr: 3.691e-05  max_mem: 10183M
+[11/20 08:24:26] densepose.engine.trainer INFO: 
+[11/20 08:24:43] d2.utils.events INFO:  eta: 4 days, 19:22:21  iter: 319  total_loss: 9.292  loss_cls: 0.07398  loss_box_reg: 0.139  loss_densepose_U: 0.06882  loss_densepose_V: 0.06966  loss_densepose_I: 0.3818  loss_densepose_S: 4.71  loss_part_I: 3.055  loss_part_U: 0.3288  loss_part_V: 0.3045  loss_rpn_cls: 0.004009  loss_rpn_loc: 0.01798  time: 0.8454  data_time: 0.0166  lr: 3.871e-05  max_mem: 10183M
+[11/20 08:24:43] densepose.engine.trainer INFO: 
+[11/20 08:25:02] d2.utils.events INFO:  eta: 4 days, 19:42:40  iter: 339  total_loss: 9.391  loss_cls: 0.07717  loss_box_reg: 0.1314  loss_densepose_U: 0.09464  loss_densepose_V: 0.09654  loss_densepose_I: 0.3849  loss_densepose_S: 4.641  loss_part_I: 3.059  loss_part_U: 0.3538  loss_part_V: 0.3368  loss_rpn_cls: 0.006701  loss_rpn_loc: 0.0233  time: 0.8509  data_time: 0.0156  lr: 4.051e-05  max_mem: 11067M
+[11/20 08:25:02] densepose.engine.trainer INFO: 
+[11/20 08:25:18] d2.utils.events INFO:  eta: 4 days, 19:11:11  iter: 359  total_loss: 8.938  loss_cls: 0.08805  loss_box_reg: 0.1569  loss_densepose_U: 0.07491  loss_densepose_V: 0.07705  loss_densepose_I: 0.3816  loss_densepose_S: 4.473  loss_part_I: 3.02  loss_part_U: 0.3078  loss_part_V: 0.2788  loss_rpn_cls: 0.006437  loss_rpn_loc: 0.02062  time: 0.8485  data_time: 0.0173  lr: 4.231e-05  max_mem: 11067M
+[11/20 08:25:18] densepose.engine.trainer INFO: 
+[11/20 08:25:37] d2.utils.events INFO:  eta: 4 days, 19:21:33  iter: 379  total_loss: 8.831  loss_cls: 0.0791  loss_box_reg: 0.1471  loss_densepose_U: 0.08514  loss_densepose_V: 0.09067  loss_densepose_I: 0.3931  loss_densepose_S: 4.305  loss_part_I: 3.049  loss_part_U: 0.335  loss_part_V: 0.2787  loss_rpn_cls: 0.006281  loss_rpn_loc: 0.02392  time: 0.8531  data_time: 0.0177  lr: 4.411e-05  max_mem: 11067M
+[11/20 08:25:37] densepose.engine.trainer INFO: 
+[11/20 08:25:54] d2.utils.events INFO:  eta: 4 days, 19:31:02  iter: 399  total_loss: 8.635  loss_cls: 0.09275  loss_box_reg: 0.1613  loss_densepose_U: 0.08548  loss_densepose_V: 0.08788  loss_densepose_I: 0.4492  loss_densepose_S: 4.034  loss_part_I: 3.025  loss_part_U: 0.3188  loss_part_V: 0.2919  loss_rpn_cls: 0.01049  loss_rpn_loc: 0.02387  time: 0.8525  data_time: 0.0173  lr: 4.591e-05  max_mem: 11067M
+[11/20 08:25:54] densepose.engine.trainer INFO: 
+[11/20 08:26:12] d2.utils.events INFO:  eta: 4 days, 20:15:39  iter: 419  total_loss: 8.454  loss_cls: 0.08247  loss_box_reg: 0.1421  loss_densepose_U: 0.1018  loss_densepose_V: 0.1007  loss_densepose_I: 0.4254  loss_densepose_S: 3.893  loss_part_I: 3.024  loss_part_U: 0.3674  loss_part_V: 0.321  loss_rpn_cls: 0.006104  loss_rpn_loc: 0.01903  time: 0.8563  data_time: 0.0171  lr: 4.771e-05  max_mem: 11067M
+[11/20 08:26:12] densepose.engine.trainer INFO: 
+[11/20 08:26:30] d2.engine.hooks INFO: Overall training speed: 436 iterations in 0:06:15 (0.8614 s / it)
+[11/20 08:26:30] d2.engine.hooks INFO: Total training time: 0:06:15 (0:00:00 on hooks)
+[11/20 08:26:30] d2.utils.events INFO:  eta: 4 days, 20:15:23  iter: 438  total_loss: 8.011  loss_cls: 0.07762  loss_box_reg: 0.1393  loss_densepose_U: 0.0794  loss_densepose_V: 0.08478  loss_densepose_I: 0.4044  loss_densepose_S: 3.621  loss_part_I: 2.992  loss_part_U: 0.302  loss_part_V: 0.2608  loss_rpn_cls: 0.005612  loss_rpn_loc: 0.02059  time: 0.8578  data_time: 0.0157  lr: 4.933e-05  max_mem: 11067M
+[11/20 08:26:30] densepose.engine.trainer INFO: 

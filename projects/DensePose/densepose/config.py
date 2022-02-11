@@ -205,6 +205,12 @@ def add_densepose_head_config(cfg: CN):
     #   "DensePoseEmbeddingWithConfidencePredictor": predicts segmentation, embeddings
     #       and associated confidences for CSE
     _C.MODEL.ROI_DENSEPOSE_HEAD.PREDICTOR_NAME = "DensePoseChartWithConfidencePredictor"
+
+    # ============================================================================================
+    _C.MODEL.ROI_DENSEPOSE_HEAD.MY_PREDICTOR_NAME = "MyDensePoseChartWithConfidencePredictor"
+    # ============================================================================================
+
+    
     # Loss class name, must be registered in DENSEPOSE_LOSS_REGISTRY
     # Some registered losses:
     #   "DensePoseChartLoss": loss for chart-based models that estimate
